@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
+import edu.iis.client.plottermagic.preset.FiguresJoe;
 import edu.iis.powp.adapter.MyAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
@@ -26,11 +27,14 @@ public class TestPlotSoftPatterns
 	 * Setup test concerning preset figures in context.
 	 * 
 	 * @param context Application context.
+     * @throws SecurityException 
+     * @throws NoSuchMethodException 
 	 */
-	private static void setupPresetTests(Context context) {
-	    SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
-		
-		context.addTest("Figure Joe 1", selectTestFigureOptionListener);	        
+	private static void setupPresetTests(Context context) throws NoSuchMethodException, SecurityException {		
+		SelectTestFigureOptionListener listener = new SelectTestFigureOptionListener(FiguresJoe.class.getMethod("figureScript1", IPlotter.class));
+		context.addTest("Figure Joe 1", listener);	
+		SelectTestFigureOptionListener listener1 = new SelectTestFigureOptionListener(FiguresJoe.class.getMethod("figureScript2", IPlotter.class));
+		context.addTest("Figure Joe 2", listener1);
 	}
 
 	/**
@@ -57,8 +61,8 @@ public class TestPlotSoftPatterns
 	private static void setupDefaultDrawerVisibilityManagement(Context context) {
 		DefaultDrawerFrame defaultDrawerWindow = DefaultDrawerFrame.getDefaultDrawerFrame();
         context.addComponentMenuElementWithCheckBox(DrawPanelController.class, "Default Drawer Visibility", 
-        		new SelectChangeVisibleOptionListener(defaultDrawerWindow), true);
-        defaultDrawerWindow.setVisible(true);
+        		new SelectChangeVisibleOptionListener(defaultDrawerWindow), false);
+        defaultDrawerWindow.setVisible(false);
 	}
 	
 	/**
@@ -92,7 +96,15 @@ public class TestPlotSoftPatterns
                 setupDefaultDrawerVisibilityManagement(context);
                 
             	setupDrivers(context);
-            	setupPresetTests(context);
+            	try {
+					setupPresetTests(context);
+				} catch (NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             	setupLogger(context);
             }
 

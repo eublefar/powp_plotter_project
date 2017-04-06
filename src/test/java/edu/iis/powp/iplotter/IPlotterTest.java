@@ -27,13 +27,13 @@ public class IPlotterTest
         @Override
         public void drawTo(int x, int y)
         {
-            System.out.println("Plotter drawTo action..."); 
+            System.out.println(String.format("Plotter drawTo action... %d %d",x , y)); 
         }
 
         @Override
         public void setPosition(int x, int y)
         {
-            System.out.println("Plotter setPosition action..."); 
+            System.out.println(String.format("Plotter setPosition action... %d %d",x , y)); 
         }
     };
 }
