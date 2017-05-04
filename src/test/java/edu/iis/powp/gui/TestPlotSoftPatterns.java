@@ -17,6 +17,8 @@ import edu.iis.powp.events.predefine.SelectChangeVisibleOptionListener;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
 import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
+import factory.SquareCommandFactory;
+import factory.TriangleCommandFactory;
 
 
 public class TestPlotSoftPatterns
@@ -35,6 +37,10 @@ public class TestPlotSoftPatterns
 		context.addTest("Figure Joe 1", listener);	
 		SelectTestFigureOptionListener listener1 = new SelectTestFigureOptionListener(FiguresJoe.class.getMethod("figureScript2", IPlotter.class));
 		context.addTest("Figure Joe 2", listener1);
+		SelectTestFigureOptionListener listener2 = new SelectTestFigureOptionListener(new SquareCommandFactory(0, 0, 60, 60).getCommand());
+		context.addTest("Square", listener2);
+		SelectTestFigureOptionListener listener3 = new SelectTestFigureOptionListener(new TriangleCommandFactory(0, 0, 60, 60, 120, 0).getCommand());
+		context.addTest("Triangle", listener3);
 	}
 
 	/**
