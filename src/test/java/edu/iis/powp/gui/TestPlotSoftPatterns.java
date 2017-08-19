@@ -5,8 +5,10 @@ import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import edu.iis.client.plottermagic.AbstractPlotter;
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
+import edu.iis.client.plottermagic.preset.FiguresJane;
 import edu.iis.client.plottermagic.preset.FiguresJoe;
 import edu.iis.powp.adapter.LinePlotterAdapter;
 import edu.iis.powp.adapter.MyAdapter;
@@ -16,6 +18,7 @@ import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectChangeVisibleOptionListener;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
+import edu.iis.powp.shape.line.MyLineFactory;
 import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 import edu.kis.powp.drawer.shape.LineFactory;
@@ -44,6 +47,11 @@ public class TestPlotSoftPatterns
 		context.addTest("Square", listener2);
 		SelectTestFigureOptionListener listener3 = new SelectTestFigureOptionListener(new TriangleCommandFactory(0, 0, 60, 60, 120, 0).getCommand());
 		context.addTest("Triangle", listener3);
+		
+		SelectTestFigureOptionListener listener4 = new SelectTestFigureOptionListener(FiguresJane.class.getMethod("figureScript", AbstractPlotter.class));
+		context.addTest("Figure Jane", listener4);
+		
+		
 	}
 
 	/**
